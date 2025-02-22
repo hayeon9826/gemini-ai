@@ -17,32 +17,29 @@ export default function Chat() {
     e.preventDefault();
     if (!input.trim()) return;
 
-    const userMessage: Message = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessage = { role: "user" as const, content: input };
+    setMessages((prev) => [...prev, newMessage]);
     setInput("");
-    setIsLoading(true);
 
     try {
+      setIsLoading(true);
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: input }),
       });
 
-      const data = await response.json();
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: data.response,
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
+      const { response: aiResponse } = await response.json();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant" as const, content: aiResponse },
+      ]);
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  console.log(messages);
 
   return (
     <div className="max-w-2xl mx-auto p-4">
