@@ -98,8 +98,7 @@ export default function StreamChat() {
     }: {
       inline?: boolean;
       className?: string;
-      children: React.ReactNode;
-      [key: string]: any;
+      children?: React.ReactNode;
     }) {
       const match = /language-(\w+)/.exec(className || "");
       return !inline && match ? (
