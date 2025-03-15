@@ -36,15 +36,22 @@ export default function Chat() {
       ]);
     } catch (error) {
       console.error("Error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant" as const,
+          content: "문제가 생겼습니다. 다시 시도해주세요",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="bg-gray-800 rounded-lg shadow-lg p-6 min-h-[500px] flex flex-col">
-        <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+    <div className="max-w-3xl mx-auto px-4">
+      <div className="bg-gray-800 h-[550px] rounded-lg shadow-lg p-6 min-h-[500px] flex flex-col">
+        <div className="flex-1 overflow-y-auto space-y-4 p-4">
           {messages.map((message, index) => (
             <div
               key={index}

@@ -122,7 +122,7 @@ export default function StreamChat() {
     <div className="max-w-3xl mx-auto px-4">
       <div className="bg-gray-800 rounded-lg overflow-hidden">
         {/* 메시지 표시 영역 */}
-        <div className="h-[600px] overflow-y-auto p-4">
+        <div className="h-[500px] overflow-y-auto p-4">
           {messages.map((message, index) => (
             <div
               key={index}
